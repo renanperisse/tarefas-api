@@ -19,9 +19,7 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     List<Tarefa> tarefas = new ArrayList<>();
 
-    public Usuario(String nome, String email) {
-        this.nome = nome;
-        this.email = email;
+    public Usuario() {
     }
 
     public Usuario(String nome, String email, String senha) {

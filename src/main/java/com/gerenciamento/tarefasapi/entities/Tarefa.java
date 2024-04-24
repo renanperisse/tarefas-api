@@ -20,6 +20,9 @@ public class Tarefa {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    public Tarefa() {
+    }
+
     public Tarefa(Long id, String titulo, String descricao, String dataDeCriacao, String dataDeConclusao, TarefaStatus tarefaStatus, Usuario usuario) {
         this.id = id;
         this.titulo = titulo;

@@ -14,7 +14,7 @@ import java.net.URI;
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
@@ -25,5 +25,13 @@ public class UsuarioController {
         Usuario usuario = usuarioService.cadastrar(usuarioRequest);
         return ResponseEntity.created(URI.create("/usuarios/" + usuario.getId())).build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponse> buscarPorId(@PathVariable Long id) {
+        Usuario usuario = usuarioService.buscarPorId(id);
+        UsuarioResponse usuarioResponse = new UsuarioResponse(usuario.getNome(), usuario.getEmail());
+        return ResponseEntity.ok(usuarioResponse);
+    }
+
 
 }

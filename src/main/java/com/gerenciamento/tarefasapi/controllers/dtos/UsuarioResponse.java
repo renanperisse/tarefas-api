@@ -2,5 +2,5 @@ package com.gerenciamento.tarefasapi.controllers.dtos;
 
 public record UsuarioResponse(
 
-        String nome, String email) {
+        Long id, String nome, String email) {
 }

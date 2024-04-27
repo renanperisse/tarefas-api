@@ -1,10 +1,15 @@
 package com.gerenciamento.tarefasapi.services;
 
 import com.gerenciamento.tarefasapi.controllers.dtos.UsuarioRequest;
-import com.gerenciamento.tarefasapi.entities.Usuario;
+import com.gerenciamento.tarefasapi.controllers.dtos.UsuarioResponse;
+
+import java.util.List;
 
 public interface UsuarioService {
 
-    Usuario cadastrar(UsuarioRequest usuarioRequest);
-    Usuario buscarPorId(Long id);
+    void cadastrar(UsuarioRequest usuarioRequest);
+    UsuarioResponse buscarPorId(Long id);
+    List<UsuarioResponse> buscarTodos();
+    void deletar(Long id);
+    void atualizar(Long id, UsuarioRequest usuarioRequest);
 }

@@ -1,5 +1,6 @@
 package com.gerenciamento.tarefasapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -17,9 +18,17 @@ public class Usuario {
     private String senha;
 
     @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
     List<Tarefa> tarefas = new ArrayList<>();
 
     public Usuario() {
+    }
+
+    public Usuario(Long id, String nome, String email, String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
     }
 
     public Usuario(String nome, String email, String senha) {
@@ -28,11 +37,8 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public Usuario(Long id, String nome, String email, String senha) {
+    public Usuario(Long id) {
         this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
     }
 
     public Long getId() {

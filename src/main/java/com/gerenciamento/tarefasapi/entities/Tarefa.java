@@ -1,5 +1,6 @@
 package com.gerenciamento.tarefasapi.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity(name = "TB_TAREFA")
@@ -17,20 +18,30 @@ public class Tarefa {
     private TarefaStatus tarefaStatus;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     public Tarefa() {
     }
 
-    public Tarefa(Long id, String titulo, String descricao, String dataDeCriacao, String dataDeConclusao, TarefaStatus tarefaStatus, Usuario usuario) {
+    public Tarefa(Long id, String titulo, String descricao, String dataDeCriacao, String dataDeConclusao, TarefaStatus tarefaStatus, Long usuarioId) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.dataDeCriacao = dataDeCriacao;
         this.dataDeConclusao = dataDeConclusao;
         this.tarefaStatus = tarefaStatus;
-        this.usuario = usuario;
+        this.usuario = new Usuario(usuarioId);
+    }
+
+    public Tarefa(String titulo, String descricao, String dataDeCriacao, String dataDeConclusao, TarefaStatus tarefaStatus, Long usuarioId) {
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.dataDeCriacao = dataDeCriacao;
+        this.dataDeConclusao = dataDeConclusao;
+        this.tarefaStatus = tarefaStatus;
+        this.usuario = new Usuario(usuarioId);
     }
 
     public Long getId() {

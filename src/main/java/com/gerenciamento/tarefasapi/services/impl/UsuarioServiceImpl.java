@@ -21,6 +21,8 @@ public class UsuarioServiceImpl implements UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
+    private static final String USUARIO_NAO_ENCONTRADO_MSG = "Não temos um usuário com este ID informado.";
+
     @Override
     public void cadastrar(UsuarioRequest usuarioRequest) {
         Usuario usuario = new Usuario(usuarioRequest.nome(),usuarioRequest.email(), usuarioRequest.senha());
@@ -30,7 +32,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioResponse buscarPorId(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNaoEncontradoException("Não temos um usuário com o ID: " + id));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(USUARIO_NAO_ENCONTRADO_MSG));
         return new UsuarioResponse(usuario.getId(), usuario.getNome(), usuario.getEmail());
     }
 
@@ -44,14 +46,14 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void deletar(Long id) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNaoEncontradoException("Não temos um usuário com o ID: " + id));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(USUARIO_NAO_ENCONTRADO_MSG));
         usuarioRepository.delete(usuario);
     }
 
     @Override
     public void atualizar(Long id, UsuarioRequest usuarioRequest) {
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new UsuarioNaoEncontradoException("Não temos um usuário com o ID: " + id));
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(USUARIO_NAO_ENCONTRADO_MSG));
         BeanUtils.copyProperties(usuarioRequest, usuario, "id");
         usuarioRepository.save(usuario);
 

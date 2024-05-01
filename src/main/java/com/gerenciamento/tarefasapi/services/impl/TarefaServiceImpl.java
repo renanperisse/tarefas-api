@@ -5,6 +5,7 @@ import com.gerenciamento.tarefasapi.entities.Tarefa;
 import com.gerenciamento.tarefasapi.exceptions.UsuarioNaoEncontradoException;
 import com.gerenciamento.tarefasapi.repositories.TarefaRepository;
 import com.gerenciamento.tarefasapi.services.TarefaService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +40,20 @@ public class TarefaServiceImpl implements TarefaService {
         List<Tarefa> tarefas = tarefaRepository.findAll();
         return tarefas.stream().map(tarefa ->
                 new TarefaDTO(tarefa.getTitulo(), tarefa.getDescricao(), tarefa.getDataDeCriacao(), tarefa.getDataDeConclusao(), tarefa.getTarefaStatus(),tarefa.getUsuario().getId())).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deletar(Long id) {
+        Tarefa tarefa = tarefaRepository.findById(id)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(USUARIO_NAO_ENCONTRADO_MSG));
+        tarefaRepository.delete(tarefa);
+    }
+
+    @Override
+    public void atualizar(Long id, TarefaDTO tarefaDTO) {
+        Tarefa tarefa = tarefaRepository.findById(id)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(USUARIO_NAO_ENCONTRADO_MSG));
+        BeanUtils.copyProperties(tarefaDTO, tarefa, "id");
+        tarefaRepository.save(tarefa);
     }
 }

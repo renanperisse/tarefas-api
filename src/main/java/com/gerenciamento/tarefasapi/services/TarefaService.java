@@ -9,5 +9,7 @@ public interface TarefaService {
     void cadastrar(TarefaDTO tarefaRequest);
     TarefaDTO buscarPorId(Long id);
     List<TarefaDTO> buscarTodos();
+    void deletar(Long id);
+    void atualizar(Long id, TarefaDTO tarefaDTO);
 
 }

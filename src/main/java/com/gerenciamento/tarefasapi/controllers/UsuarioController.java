@@ -49,5 +49,4 @@ public class UsuarioController {
         usuarioService.atualizar(id, usuarioRequest);
         return ResponseEntity.ok().body("Usuário atualizado com sucesso. :)");
     }
-
 }

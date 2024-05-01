@@ -56,7 +56,6 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .orElseThrow(() -> new UsuarioNaoEncontradoException(USUARIO_NAO_ENCONTRADO_MSG));
         BeanUtils.copyProperties(usuarioRequest, usuario, "id");
         usuarioRepository.save(usuario);
-
     }
 
 
